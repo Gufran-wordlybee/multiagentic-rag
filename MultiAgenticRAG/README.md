@@ -9,7 +9,7 @@ To get started with this project, follow these steps:
 First, clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/nicoladisabato/MultiAgenticRAG.git
+git clone <link>
 cd MultiAgenticRAG
 ```
 
