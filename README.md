@@ -306,5 +306,14 @@ Want to extend MultiAgentic RAG?
 ---
 
 ## License
+This project is private. All rights reserved by [Gufran](https://github.com/Gufran-wordlybee)
 
-Open source — use freely for research and learning.
+## Contact
+**Gufran Alam**
+- **Email:** <a href="mailto:justgufran07@gmail.com">justgufran07@gmail.com</a>
+- **LinkedIn:** <a href="https://www.linkedin.com/in/gufran-alam-a25717321/" target="_blank">linkedin.com/in/gufran-alam-a25717321</a>
+
+For bug reports or feature requests, please open an issue in this repository.
+
+
+
