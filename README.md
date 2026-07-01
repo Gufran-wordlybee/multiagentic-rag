@@ -305,6 +305,18 @@ Want to extend MultiAgentic RAG?
 
 ---
 
+## Become a Collaborator
+
+Active contributors may be invited as collaborators on this repository.
+
+You may be eligible if you:
+- Have 15 or more merged pull requests.
+- Implement a major feature accepted by the maintainers.
+- Consistently make high-quality contributions over time.
+- Help review issues, improve documentation, or support the community.
+
+Collaborator access is granted at the discretion of the project maintainers.
+
 ## License
 This project is private. All rights reserved by [Gufran](https://github.com/Gufran-wordlybee)
 
