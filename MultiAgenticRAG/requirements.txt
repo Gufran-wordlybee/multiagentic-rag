@@ -1,0 +1,21 @@
+# rank_bm25
+# rank-llm==0.12.8
+# chromadb
+# langchain
+# langchain-core
+# langchain-community
+# langchain-openai
+# langchain_cohere
+
+rank_bm25
+rank-llm==0.12.8
+
+chromadb==0.5.23
+
+langchain==0.3.27
+langchain-core==0.3.76
+langchain-community==0.3.29
+langchain-openai==0.3.33
+langchain-huggingface==0.1.2
+langchain-text-splitters==0.3.11
+langchain-cohere==0.3.4
