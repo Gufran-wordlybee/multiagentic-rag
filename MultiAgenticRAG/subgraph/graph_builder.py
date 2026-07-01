@@ -2,7 +2,7 @@
 
 from langchain_community.vectorstores import Chroma
 # from langchain_openai import OpenAIEmbeddings
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 
 from langchain.retrievers import EnsembleRetriever, BM25Retriever
 from dotenv import load_dotenv
@@ -15,6 +15,7 @@ from langchain_core.messages import BaseMessage
 from langchain_core.runnables import RunnableConfig
 from langgraph.graph import END, START, StateGraph
 from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 from langgraph.types import Send
 
 
@@ -35,6 +36,9 @@ TOP_K = config["retriever"]["top_k"]
 TOP_K_COMPRESSION = config["retriever"]["top_k_compression"]
 ENSEMBLE_WEIGHTS = config["retriever"]["ensemble_weights"]
 COHERE_RERANK_MODEL = config["retriever"]["cohere_rerank_model"]
+
+GROQ_MODEL = config["llm"]["groq_model"]
+TEMPERATURE = config["llm"]["temperature"]
 
 def _setup_vectorstore() -> Chroma:
     """
@@ -138,7 +142,8 @@ async def generate_queries(
         queries: list[str]
 
     logger.info("---GENERATE QUERIES---")
-    model = ChatOpenAI(model="gpt-4o-mini-2024-07-18", temperature=0)
+    # model = ChatOpenAI(model="gpt-4o-mini-2024-07-18", temperature=0)
+    model = ChatGroq(model=GROQ_MODEL, temperature=TEMPERATURE, streaming=True)
     messages = [
         {"role": "system", "content": GENERATE_QUERIES_SYSTEM_PROMPT},
         {"role": "human", "content": state.question},

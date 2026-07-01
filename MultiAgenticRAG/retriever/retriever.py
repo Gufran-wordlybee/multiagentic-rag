@@ -9,7 +9,8 @@ from utils.utils import config
 from langchain_community.vectorstores import Chroma
 # from langchain_openai import OpenAIEmbeddings
 #since openai is not free
-from langchain_huggingface import HuggingFaceEmbeddings
+# from langchain_huggingface.embeddings import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 
 from langchain.retrievers import EnsembleRetriever, BM25Retriever
 from typing import List, Any

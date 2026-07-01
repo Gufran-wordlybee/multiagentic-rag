@@ -9,7 +9,7 @@ To get started with this project, follow these steps:
 First, clone the repository to your local machine:
 
 ```bash
-git clone <link>
+git clone <link >
 cd MultiAgenticRAG
 ```
 
@@ -35,4 +35,4 @@ Now ask your question based on the document: https://sustainability.google/repor
 
 self notes :
 1. source .venv/bin/activate
-Every time you open a new terminal and want to work on this project, you'll need to activate the virtual environment.
+Every time you open a new terminal and want to work on this project, you'll need to activate the virtual environment

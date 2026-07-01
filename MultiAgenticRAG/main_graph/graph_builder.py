@@ -12,6 +12,7 @@ from langchain_core.messages import BaseMessage
 from langchain_core.runnables import RunnableConfig
 from langgraph.graph import END, START, StateGraph
 from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 from langgraph.types import interrupt, Command
 from main_graph.graph_states import AgentState, Router, GradeHallucinations, InputState
 from utils.prompt import ROUTER_SYSTEM_PROMPT, RESEARCH_PLAN_SYSTEM_PROMPT, MORE_INFO_SYSTEM_PROMPT, GENERAL_SYSTEM_PROMPT, CHECK_HALLUCINATIONS, RESPONSE_SYSTEM_PROMPT
@@ -36,6 +37,7 @@ logging.getLogger("httpx").propagate = False
 
 GPT_4o_MINI = config["llm"]["gpt_4o_mini"]
 GPT_4o = config["llm"]["gpt_4o"]
+GROQ_MODEL = config["llm"]["groq_model"]
 TEMPERATURE = config["llm"]["temperature"]
 
 
@@ -54,7 +56,8 @@ async def analyze_and_route_query(
     Returns:
         dict[str, Router]: A dictionary containing the 'router' key with the classification result (classification type and logic).
     """
-    model = ChatOpenAI(model=GPT_4o, temperature=TEMPERATURE, streaming=True)
+    # model = ChatOpenAI(model=GPT_4o, temperature=TEMPERATURE, streaming=True)
+    model = ChatGroq(model=GROQ_MODEL, temperature=TEMPERATURE, streaming=True)
     messages = [
         {"role": "system", "content": ROUTER_SYSTEM_PROMPT}
     ] + state.messages
@@ -111,7 +114,8 @@ async def create_research_plan(
 
         steps: list[str]
 
-    model = ChatOpenAI(model=GPT_4o_MINI, temperature=TEMPERATURE, streaming=True)
+    # model = ChatOpenAI(model=GPT_4o_MINI, temperature=TEMPERATURE, streaming=True)
+    model = ChatGroq(model=GROQ_MODEL, temperature=TEMPERATURE, streaming=True)
     messages = [
         {"role": "system", "content": RESEARCH_PLAN_SYSTEM_PROMPT}
     ] + state.messages
@@ -136,7 +140,8 @@ async def ask_for_more_info(
     Returns:
         dict[str, list[str]]: A dictionary with a 'messages' key containing the generated response.
     """
-    model = ChatOpenAI(model=GPT_4o_MINI, temperature=TEMPERATURE, streaming=True)
+    # model = ChatOpenAI(model=GPT_4o_MINI, temperature=TEMPERATURE, streaming=True)
+    model = ChatGroq(model=GROQ_MODEL, temperature=TEMPERATURE, streaming=True)
     system_prompt = MORE_INFO_SYSTEM_PROMPT.format(
         logic=state.router["logic"]
     )
@@ -201,7 +206,8 @@ async def respond_to_general_query(
     Returns:
         dict[str, list[str]]: A dictionary with a 'messages' key containing the generated response.
     """
-    model = ChatOpenAI(model=GPT_4o_MINI, temperature=TEMPERATURE, streaming=True)
+    # model = ChatOpenAI(model=GPT_4o_MINI, temperature=TEMPERATURE, streaming=True)
+    model = ChatGroq(model=GROQ_MODEL, temperature=TEMPERATURE, streaming=True)
     system_prompt = GENERAL_SYSTEM_PROMPT.format(
         logic=state.router["logic"]
     )
@@ -275,7 +281,8 @@ async def check_hallucinations(
     Returns:
         dict[str, Router]: A dictionary containing the 'router' key with the classification result (classification type and logic).
     """
-    model = ChatOpenAI(model=GPT_4o_MINI, temperature=TEMPERATURE, streaming=True)
+    # model = ChatOpenAI(model=GPT_4o_MINI, temperature=TEMPERATURE, streaming=True)
+    model = ChatGroq(model=GROQ_MODEL, temperature=TEMPERATURE, streaming=True)
     system_prompt = CHECK_HALLUCINATIONS.format(
         documents=state.documents,
         generation=state.messages[-1]
@@ -325,7 +332,8 @@ async def respond(
         dict[str, list[str]]: A dictionary with a 'messages' key containing the generated response.
     """
     logging.info("--- RESPONSE GENERATION STEP ---")
-    model = ChatOpenAI(model=GPT_4o, temperature=TEMPERATURE, streaming=True)
+    # model = ChatOpenAI(model=GPT_4o, temperature=TEMPERATURE, streaming=True)
+    model = ChatGroq(model=GROQ_MODEL, temperature=TEMPERATURE, streaming=True)
     context = format_docs(state.documents)
     prompt = RESPONSE_SYSTEM_PROMPT.format(context=context)
     messages = [{"role": "system", "content": prompt}] + state.messages
